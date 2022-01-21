@@ -7,10 +7,10 @@ using namespace std;
 
 int main()
 {
-    const string name = "CeloPunk Animated Edition";
+    const string name = "wow nice work";
     const string description = "CeloPunks Animated Edition is a collection of 1500 unique special animated punks. Not affiliated with LarvaLabs.";
     const string image = "https://ipfs.io/ipfs/QmawoM7cYWBtxaUQNE5Sk5TCmYjQ7dFr4Bpi3SfHwD22pp";
-    const int numbOfPunkToGen = 1500;
+    const int numbOfPunkToGen = 100;
     const int nLayers = 5;
     const vector<pair<string,string>> &extraMetadata = 
     {

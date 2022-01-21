@@ -112,7 +112,14 @@ When you have downloaded the code you will be able to generate your own GIFs usi
 
 ## Installation, compilation and execution
 
-Requirements: linux operating system
+Requirements: linux operating system, FFmpeg installed
+
+If you haven't installed ffmpeg yet, install it with the following command in the terminal:
+```
+sudo apt update & sudo apt install ffmpeg -y
+```
+
+The code was tested with FFmpeg version 4.2.4.
 
 If you want to clone the project, run this command:
 ```
@@ -177,7 +184,7 @@ Description of variables:
     * image: links where gifs and JSONs will be hosted.
     
     * extraMetadata: vector that contains some metadata you want to add to each JSON.
-* Gestione rarità:
+* Rarity Management:
     * rarityList: multidimensional vector of numbers that contains the probability that character has of being selected. The sum of each probability entered for a specific layer must make 100.
     
 This is an example with a collection of mine:
