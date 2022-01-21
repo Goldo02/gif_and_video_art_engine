@@ -1,0 +1,31 @@
+{
+	 "name":"CeloPunk Animated Edition #1",
+	 "description":"CeloPunks Animated Edition is a collection of 1500 unique special animated punks. Not affiliated with LarvaLabs.",
+	 "image":"/1.gif",
+	 "dna": " 2 1 1 0 0 ",
+	 "edition":"1",
+	 "date":"1642768150",
+	 "attributes": [
+	 	 {
+	 	 	 "trait_type": "1-background",
+	 	 	 "value": "Celo_Dark3.gif"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "2-character",
+	 	 	 "value": "Ape_Male_Alien2.gif"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "3-lip",
+	 	 	 "value": "Burgundy_Lipstick2.gif"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "4-head",
+	 	 	 "value": "Bandana1.gif"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "5-eyes",
+	 	 	 "value": "3D_Glasses1.gif"
+	 	 }
+	 ],
+	 "Compiler": "CeloPunks Algorithm"
+}
