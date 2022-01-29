@@ -112,12 +112,19 @@ When you have downloaded the code you will be able to generate your own GIFs usi
 
 ## Installation, compilation and execution
 
-Requirements: linux operating system, FFmpeg installed
+Requirements for linux: FFmpeg installed
 
-If you haven't installed ffmpeg yet, install it with the following command in the terminal:
+Requirements for windows: FFmpeg and MinGW installed
+
+On linux if you haven't installed FFmpeg yet, install it with the following command in the terminal:
 ```
 sudo apt update & sudo apt install ffmpeg -y
 ```
+On windows to install FFmpeg and MinGW watch these videos:
+
+1) FFmpeg: https://www.youtube.com/watch?v=r1AtmY-RMyQ
+
+2) MinGW: https://www.youtube.com/watch?v=guM4XS43m4I&t=305s
 
 The code was tested with FFmpeg version 4.2.4.
 
