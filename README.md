@@ -7,6 +7,7 @@ If you found my work useful for any of your projects, please make some donations
 
 MetaMask address: 0x58d55348e16C1241D1b7e9238c7753e9c7BF19CB
 
+For help contact me on discord: luffy2023 il cane fifone#2742
 
 ## What does the code allow you to do? 
 When you have downloaded the code you will be able to generate your own GIFs using GIFs as layers. What the code will do is overlay all the GIFs you have chosen in the desired order and generate _n_ final gifs. This is an example of generating a gif with five separate layers:
