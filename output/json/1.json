@@ -1,31 +1,32 @@
 {
-	 "name":"CeloPunk Animated Edition #1",
-	 "description":"CeloPunks Animated Edition is a collection of 1500 unique special animated punks. Not affiliated with LarvaLabs.",
-	 "image":"/1.gif",
-	 "dna": " 2 1 1 0 0 ",
+	 "name":"CeloPunks YouTube test #1",
+	 "description":"i love CeloPunks",
+	 "image":"https://twitter.com/elonmusk/1.gif",
+	 "dna": " 1 0 1 0 1 ",
 	 "edition":"1",
-	 "date":"1642768150",
+	 "date":"1644942600",
 	 "attributes": [
 	 	 {
 	 	 	 "trait_type": "1-background",
-	 	 	 "value": "Celo_Dark3.gif"
+	 	 	 "value": "Faint_Gold.gif"
 	 	 },
 	 	 {
 	 	 	 "trait_type": "2-character",
-	 	 	 "value": "Ape_Male_Alien2.gif"
+	 	 	 "value": "Male_Zombie.gif"
 	 	 },
 	 	 {
-	 	 	 "trait_type": "3-lip",
-	 	 	 "value": "Burgundy_Lipstick2.gif"
+	 	 	 "trait_type": "3-head",
+	 	 	 "value": "Wallstreetbets_Dark_Crazy_Hair.gif"
 	 	 },
 	 	 {
-	 	 	 "trait_type": "4-head",
-	 	 	 "value": "Bandana1.gif"
+	 	 	 "trait_type": "4-eyes",
+	 	 	 "value": "Nerd_Glasses.gif"
 	 	 },
 	 	 {
-	 	 	 "trait_type": "5-eyes",
-	 	 	 "value": "3D_Glasses1.gif"
+	 	 	 "trait_type": "5-lip",
+	 	 	 "value": "Space_Lipstick.gif"
 	 	 }
 	 ],
-	 "Compiler": "CeloPunks Algorithm"
+	 "Compiler": "CeloPunks compiler",
+	 "Github Author": "Goldo02"
 }

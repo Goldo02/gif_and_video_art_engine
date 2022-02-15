@@ -5,8 +5,9 @@ using namespace std;
 
 int main()
 {
-    const int numbOfPunkToGen = 100;
-    generatePreviewGif(numbOfPunkToGen);
+    const int numbOfMediaToGen = 150;
+    const int scale = 240;
+    generatePreviewGif(numbOfMediaToGen, scale);
     
  return 0;
 }

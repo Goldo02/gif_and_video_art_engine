@@ -16,66 +16,49 @@ using namespace std;
 int main()
 {
     srand(time(NULL));
-    
-    //GESTIONE LAYER 
-    const int numbOfPunkToGen = 100;
     const int scale = 240;
+    const string outputFormat = "gif";
     const bool randomized = true;
-    //vettore di stringhe che contiene il nome della cartella in cui sono contenuti i singoli layer
-    const vector<string> layerDir = {"1-background", "2-character", "3-lip", "4-head", "5-eyes"};
-    //singoli layer specificati
-    const vector<vector<string>> singleLayer = 
+    const bool unique = true;
+    vector<int> collectionSize = {5, 6};
+    const vector<vector<string>> layerDir = 
     {
-    {"Celo_Dark1.gif", "Celo_Dark2.gif", "Celo_Dark3.gif"}, 
-    
-    {"Ape_Male_Alien1.gif", "Ape_Male_Alien2.gif", "Ape_Male_Alien3.gif"},
-    
-    {"Burgundy_Lipstick1.gif", "Burgundy_Lipstick2.gif", "Burgundy_Lipstick3.gif"},
-    
-    {"Bandana1.gif", "Bandana2.gif", "Bandana3.gif"},
-    
-    {"3D_Glasses1.gif", "3D_Glasses2.gif", "3D_Glasses3.gif"}
+    {"1-background", "2-character", "3-head", "4-eyes", "5-lip"},
+    {"1-background", "2-character", "3-head"}
     };
     
-    //GESTIONE METADATA
-    const vector<vector<string>> singleLayerName = 
-    {
-    {"Celo_Dark1.gif", "Celo_Dark2.gif", "Celo_Dark3.gif"}, 
-    
-    {"Ape_Male_Alien1.gif", "Ape_Male_Alien2.gif", "Ape_Male_Alien3.gif"},
-    
-    {"Burgundy_Lipstick1.gif", "Burgundy_Lipstick2.gif", "Burgundy_Lipstick3.gif"},
-    
-    {"Bandana1.gif", "Bandana2.gif", "Bandana3.gif"},
-    
-    {"3D_Glasses1.gif", "3D_Glasses2.gif", "3D_Glasses3.gif"}
-    };
-    
-    const string name = "CeloPunk Animated Edition";
-    const string description = "CeloPunks Animated Edition is a collection of 1500 unique special animated punks. Not affiliated with LarvaLabs.";
-    const string image = "";
+    const string name = "CeloPunks YouTube test";
+    const string description = "i love CeloPunks";
+    const string image = "https://twitter.com/elonmusk";
     const vector<pair<string,string>> extraMetadata = 
     {
-    {"Compiler", "CeloPunks Algorithm"}
+    {"Compiler", "CeloPunks compiler"},
+    {"Github Author", "Goldo02"}
     };
     
-    //GESTIONE RARITÀ
-    const vector<vector<int>> rarityList = 
-    {
-    {20, 30, 50}, //3
-    {20, 30, 50}, //3
-    {20, 30, 50}, //3
-    {20, 30, 50}, //3
-    {20, 30, 50}, //3
-    };
+    vector<vector<vector<string>>> singleLayer((int)collectionSize.size());
+    vector<vector<vector<string>>> metadataSingleLayerName((int)collectionSize.size());
+    vector<vector<vector<int>>> rarityList((int)collectionSize.size());
+    vector<string> dnaOfAllMedia;
     
-    if(randomized)
-        genAndSaveDnaRandomly("../tmp/punksDna", singleLayer, numbOfPunkToGen);
-    else
-        genAndSaveDnaWithRarity("../tmp/punksDna", singleLayer, rarityList, numbOfPunkToGen);
-    generateAllPunksMetadata(layerDir, singleLayerName, name, description, image, extraMetadata, numbOfPunkToGen);
-    createRarityFile(layerDir, singleLayerName, numbOfPunkToGen);
-    generateAllPunks(layerDir, singleLayer, numbOfPunkToGen, scale);
-    
+    if((int)collectionSize.size()>=1){
+        deleteAllTmpFiles();
+        convertCollectionSize(collectionSize); dnaOfAllMedia.resize(collectionSize[(int)collectionSize.size()-1]);
+        for(int i=1;i<(int)collectionSize.size();++i){
+            readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityList[i-1]);
+
+            if(randomized)
+                genAndSaveDnaRandomly("../tmp/media_dna.txt", layerDir[i-1], singleLayer[i-1], collectionSize, i, dnaOfAllMedia, unique);
+            else
+                genAndSaveDnaWithRarity("../tmp/media_dna.txt", layerDir[i-1], singleLayer[i-1], rarityList[i-1], collectionSize, i, dnaOfAllMedia, unique);
+        }
+         createRarityFile("../output/rarity_list.txt", collectionSize[(int)collectionSize.size()-1]);
+          deleteCharactersFromDnas(dnaOfAllMedia);
+        for(int i=1;i<(int)collectionSize.size();++i){
+            generateAllMediaMetadata(layerDir[i-1], metadataSingleLayerName[i-1], name, description, image, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
+            generateAllMedia(layerDir[i-1], singleLayer[i-1], collectionSize, i, scale, dnaOfAllMedia, outputFormat);
+        }
+        generateMetadataJson(collectionSize[(int)collectionSize.size()-1]);
+    }
  return 0;
 }

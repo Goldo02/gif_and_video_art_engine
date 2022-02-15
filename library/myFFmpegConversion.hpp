@@ -3,8 +3,6 @@
 
 using namespace std;
 
-static void convertMp4ToGif(string, string, const int);
-static void convertGifToMp4(const int&);
-static void overlapTwoGifsInAVideo(string, string, string);
-void generateAllPunks(const vector<string> &, const vector<vector<string>> &, const int, const int);
-void generatePreviewGif(const int &);
+void mergeAllAudioWithVideo(const string&, const string&, const string&, const int &);
+void generateAllMedia(const vector<string> &, const vector<vector<string>> &, vector<int> &, const int&, const int&, const vector<string> &, const string &);
+void generatePreviewGif(const int &, const int &);
