@@ -69,8 +69,8 @@ On windows to install the Ubuntu bash/terminal watch this video: https://www.you
 Then open the terminal and run this three commands:
 ```
 sudo apt-get update
-sudo apt-get install g++
-sudo apt-get install ffmpeg
+sudo apt-get install g++ -y
+sudo apt-get install ffmpeg -y
 ```
 
 If you have git installed and you want to clone the project, run this command:
