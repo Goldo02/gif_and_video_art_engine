@@ -9,9 +9,6 @@ If you found my work useful for any of your projects, please make some donations
 
 **Discord username**: luffy2023 il cane fifone#2742 -> contact me if you need help
 
-**Tutorial for this repository**: ...
-
-
 These are some GIFs/Videos generated with my engine:
 
 ![Alt Text](https://github.com/Goldo02/gif_art_engine_for_nft/blob/main/example/example3.gif)
