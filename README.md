@@ -72,7 +72,7 @@ sudo apt-get install ffmpeg -y
 
 If you have git installed and you want to clone the project, run this command:
 ```
-git clone https://github.com/Goldo02/gif_and_video_art_engine_for_nft.git
+git clone https://github.com/Goldo02/gif_and_video_art_engine.git
 ```
 After doing so, open the terminal and move to the folder where you cloned the project and go to the _src_ folder.
 
