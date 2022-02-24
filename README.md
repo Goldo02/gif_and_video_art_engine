@@ -152,7 +152,7 @@ Description of variables:
 
 * _unique_: set this parameter to true if you want that each GIF or Video is unique, to false if you want that there is the possibilites that a GIF or a Video appear more than one time.
 
-* _shuffleOutput_: shuffle the final output. Only set this to true if u sub collection.
+* _shuffleOutput_: shuffle the final output. Only set this to true if you have sub collections.
 
 * _collectionSize_: contains the number of media u want to generate for each collection. This number is linked to the lines of the _layerDir_ variable.
 
