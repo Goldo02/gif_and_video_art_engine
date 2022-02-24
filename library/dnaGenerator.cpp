@@ -20,14 +20,14 @@ static bool wasAlrGen(const string &mediaDna, const vector<string> &dnaOfAllMedi
     return flag;
 }
 
-void genAndSaveDnaRandomly(string nameFile, const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const vector<int> &collectionSize, const int& collIndex, vector<string> &dnaOfAllMedia, const bool &unique)
+void genAndSaveDnaRandomly(const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const vector<int> &collectionSize, const int& collIndex, vector<string> &dnaOfAllMedia, const bool &unique)
 {
-    ofstream fout(nameFile, ios::app);
+    ofstream fout("./tmp/media_dna.txt", ios::app);
     string mediaDna;
     int layerInDir = -1, nLayers = (int)singleLayer.size(), randNum;
     
     if(fout.fail()){
-        cerr << "errore durante l'apertura del file dei dna" << endl;
+        cerr << "in function 'genAndSaveDnaRandomly': error while opening in writing the file ./tmp/media_dna.txt" << endl;
         exit(2);
     }
     
@@ -49,14 +49,14 @@ void genAndSaveDnaRandomly(string nameFile, const vector<string> &layerDir, cons
 }
 
 
-void genAndSaveDnaWithRarity(string nameFile, const vector<string> &layerDir,const vector<vector<string>> &singleLayer, const vector<vector<int>> &rarityList, const vector<int> &collectionSize, const int& collIndex, vector<string> &dnaOfAllMedia, const bool &unique)
+void genAndSaveDnaWithRarity(const vector<string> &layerDir,const vector<vector<string>> &singleLayer, const vector<vector<int>> &rarityList, const vector<int> &collectionSize, const int& collIndex, vector<string> &dnaOfAllMedia, const bool &unique)
 {
     vector<vector<int>> rarityValue((int)singleLayer.size());
     string mediaDna;
     ofstream fout;
     int random = -1;
 
-    //100:rarityList[i][j]=numbOfMediaToGen:x x=numbOfMediaToGen*rarityList[i][j]/100 CAPIRE MEGLIO RIGA 72/74
+    //100:rarityList[i][j]=numbOfMediaToGen:x x=numbOfMediaToGen*rarityList[i][j]/100 CAPIRE MEGLIO RIGA 72/74 non mi ricordo più
     for(int i=0;i<(int)rarityValue.size();++i){
         int cont = 0;
         rarityValue[i].resize((int)rarityList[i].size());
@@ -74,10 +74,10 @@ void genAndSaveDnaWithRarity(string nameFile, const vector<string> &layerDir,con
         }
     }
     
-    fout.open(nameFile, ios::app);
+    fout.open("./tmp/media_dna.txt", ios::app);
     
     if(fout.fail()){
-        cerr << "errore durante l'apertura del file dei dna" << endl;
+        cerr << "in function 'genAndSaveDnaWithRarity': error while opening in writing the file ./tmp/media_dna.txt" << endl;
         exit(2);
     }
     

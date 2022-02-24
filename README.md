@@ -9,9 +9,9 @@ If you found my work useful for any of your projects, please make some donations
 
 **Discord username**: luffy2023 il cane fifone#2742 -> contact me if you need help
 
-These are some GIFs/Videos generated with my engine:
+These are some GIFs/Videos that people generated with my engine:
 
-![Alt Text](https://github.com/Goldo02/gif_art_engine_for_nft/blob/main/example/example3.gif)
+![Alt Text]() ![Alt Text]() ![Alt Text]()
 
 https://user-images.githubusercontent.com/58893398/154155400-5ad8134d-5c3b-4311-9b15-4ee5535fb92e.mov
 
@@ -22,9 +22,9 @@ https://user-images.githubusercontent.com/58893398/154155423-2bf37ab8-8c30-4c72-
 
 - The code was tested with FFmpeg version 4.2.4.
 
-- Each Gif you put as layer should have the same size, length and number of frames of the others. If this condition won't be respected some layers will probably become static after a period of time.
+- Each Gif/Video you put as layer should have the same size, length and number of frames of the others. If this condition won't be respected some layers will probably become static after a period of time.
 
-- I'm really sorry if you will find some bugs trying to run the code. If you find some, please open an issue, so i can know what the problem is and i can fix it.
+- I'm really sorry if you will find some bugs trying to run the code. If you find some, please open an issue, so i can know what the problem is and i can fix it, in my free time.
 
 
 ## What does the code allow you to do? 
@@ -54,10 +54,12 @@ When you have downloaded the code you will be able to generate your own GIFs and
 
 * You can combine video and audio files to generate video + audio files.
 
+* If the video files you are trying to overlapping contains an audio track, even this will be overlapped with the others audio traces
+
 
 ## Installation, compilation and execution
 
-**Note:** the code was not tested on macOS
+**Note:** the code was not tested on macOS, but i know someone succeeded to run this code on macOS
 
 **Requirements:** Windows or Linux operating system
 
@@ -74,67 +76,65 @@ If you have git installed and you want to clone the project, run this command:
 ```
 git clone https://github.com/Goldo02/gif_and_video_art_engine.git
 ```
-After doing so, open the terminal and move to the folder where you cloned the project and go to the _src_ folder.
+
+After that, open the terminal and move to the folder where you cloned the project.
 
 To compile the _main.cpp_ file use the command: 
 ```
-g++ ../library/dnaGenerator.cpp ../library/metadataFunction.cpp ../library/myFFmpegConversion.cpp ../library/utils.cpp main.cpp -o main
+g++ ./library/dnaGenerator.cpp ./library/metadataFunction.cpp ./library/myFFmpegConversion.cpp ./library/utils.cpp main.cpp -o main
 ```
 
-To execute:
+To run the code and generate the art with opensea standard metadata:
 ```
-./main
-```
-
-To compile the _update-info.cpp_ file, use the command:
-```
-g++ ../library/utils.cpp ../library/metadataFunction.cpp update_info.cpp -o update_info
+./main ETH 
 ```
 
-To execute:
+To run the code and generate the art with solana standard metadata:
 ```
-./update_info
-```
-
-To compile the file _preview-gif.cpp_ use the command: 
-```
-g++ ../library/myFFmpegConversion.cpp preview_gif.cpp -o preview_gif
+./main SOL
 ```
 
-To execute:
+To update your metadata following the opensea standard:
 ```
-./preview_gif
-```
-
-To compile the file _combine-video-and-audio.cpp_ use the command: 
-```
-g++ -Wall ../library/myFFmpegConversion.cpp combine_video_and_audio.cpp -o combine
+./main ETH update_info
 ```
 
-To execute:
+To update your metadata following the solana standard:
 ```
-./combine
+./main SOL update_info
 ```
 
-**Note:** remember that every time you modify one file you must also recompile it before running it, otherwise you will run the program out of date with the changes you made.
+To generate a preview gif:
+```
+./main ETH preview_gif
+```
+
+To combine video with audio:
+```
+./main ETH combine_video_with_audio
+```
+
+
+**Note:** remember that every time you modify the file you must also recompile it before running it, otherwise you will run the program out of date with the changes you made.
 
 ## Usage
 To use the algorithm and modify it according to your needs you must open the file _main.cpp_. That's the part of the code to change:
 ```c++
 const int scale = 240;
 const string outputFormat = "gif";
-const bool randomized = true;
+const bool randomized = false;
 const bool unique = true;
-vector<int> collectionSize = {5, 6};
+const bool shuffleOutput = true;
+vector<int> collectionSize = {10, 4};
 const vector<vector<string>> layerDir = 
 {
 {"1-background", "2-character", "3-head", "4-eyes", "5-lip"},
 {"1-background", "2-character", "3-head"}
 };
 
-const string name = "CeloPunks YouTube test";
-const string description = "i love CeloPunks";
-const string image = "https://twitter.com/elonmusk";
+const string name = "SUrrty Peasy YouTube test";
+const string description = "i love u";
+const string baseUri = "https://twittercom/elonmusk";
 const vector<pair<string,string>> extraMetadata = 
 {
 {"Compiler", "CeloPunks compiler"},
@@ -152,64 +152,68 @@ Description of variables:
 
 * _unique_: set this parameter to true if you want that each GIF or Video is unique, to false if you want that there is the possibilites that a GIF or a Video appear more than one time.
 
-* _collectionSize_: contains the number of media u want to generate for each collection. This would be the grow edition size in the Hashlips art engine.
+* _shuffleOutput_: shuffle the final output. Only set this to true if u sub collection.
 
-* _layerDir_: contains the layers to consider for each collection. **You don't need to specify every single layer, but each layers name cannot have spaces**. **The rarity is specified in the single layer name after the '#' character, after this character you can insert the percentage of presence of the trait**.
+* _collectionSize_: contains the number of media u want to generate for each collection. This number is linked to the lines of the _layerDir_ variable.
+
+* _layerDir_: contains the layers to consider for each collection. **You don't need to specify every single layer, but each layers name cannot have spaces, if you want to put spaces in the metadata you hae to put the character '_' instead. The rarity is specified in the single layer name after the '#' character, after this character you can insert the percentage of presence of the trait. This number must be an integer.**
 
 * _name_: is the name of the collection.
 
 * _description_: is the description of the collection.
 
-* _image_: is the place where all your media will be hosted. Usually people host their media on their server or on Pinata IPFS.
+* _baseUri_: is the place where all your media will be hosted. Usually people host their media on their server or on Pinata IPFS.
 
 * _extraMetadata_: contains some extra metadata you can choose to add at the end of each .json file.
 
-In this example 11 unique and random GIFs were generated. Six of which won't have _4-eyes_ and _5-lip_ as background.
+**Remember**: recompile the program before running it after modifying it.
 
 ### Update metadata
-Open the _update-info.cpp_ file located in the _src_ folder. That's the part of the code to modify:
+To update the metadata you need to change this part of the code accordly to your needs, then you need to recompile the code, and then you can execute the code.
 ```c++
-const string name = "wow nice work";
-const string description = "CeloPunks Animated Edition is a collection of 1500 unique special animated punks. Not affiliated with LarvaLabs.";
-const string image = "https://ipfs.io/ipfs/QmawoM7cYGBtxaUQNE5Sk5TCmYjQ7dFr4Bpi3SfHwD22pp";
-const string format = "gif";
-vector<int> collectionSize = {5, 6};
-const vector<int> nLayers = {5, 3};
-const vector<pair<string,string>> &extraMetadata = 
+const string name = "SUrrty Peasy YouTube test";
+const string description = "i love u";
+const string baseUri = "https://twittercom/elonmusk";
+const vector<pair<string,string>> extraMetadata = 
 {
 {"Compiler", "CeloPunks compiler"},
 {"Github Author", "Goldo02"}
 };
 ```
-You already know what all these variables are for, except for _nLayers_. Here i put 5 and 3 because the first part of the collection has 5 layers: _1-background_, _2-character_, _3-head_, _4-eyes_, _5-lip_ and the second one has 3 layers: _1-background_, _2-character_, _3-head_. 
+
+There are two commands to update the metadata, you can find them in the **Installation, Build and Run** part of the readme.
 
 
 ### Creating a gif preview
-Open the _preview-gif.cpp_ file located in the _src_ folder. In this file there are only two parameter _numbOfMediaToGen_ which is a number that indicates the first _n_ GIFs that must be taken from the collection to generate the preview and _scale_, that is the output size.
-
+To create a preview gif you need to change this part of the code accordly to your needs, then you need to recompile the code, and then you can execute the code.
 Example:
 ```c++
-const int numbOfMediaToGen = 11;
-const int scale = 240;
+const int firstMedia = 0;
+const int numbOfMediaToGen = 10;
+const int fps = 30;
 ```
 
-This way the first 11 GIFs in our collection will be used to generate a preview. You can find the preview in the output folder
+Description of variables:
+
+* _firstMedia_: is the position of the first GIF.
+
+* _numbOfMediaToGen_: number of gifs to be considered for preview_gif generation. The first gif will have _firstMedia_ as initial position.
+
+* _fps_: is the encoding speed, choose it according to the fps of your gifs.
+
+This is an example of a user-generated preview_gif:
+
+![Alt Text]()
+
 
 ### Combine video and audio
-Open the _combine-video-and-audio.cpp_ file located in the _src_ folder and change this variables:
+To create a preview gif you need to change this part of the code accordly to your needs, then you need to recompile the code, and then you can execute the code.
 ```c++
-const int numbOfVideoAndAudio = 1;
+const int firstMedia = 0;
+const int numbOfMediaToGen = 10;
 const string inputVideoForm = "mp4";
 const string inputAudioForm = "mp3";
 const string outputVideoForm = "mp4";
 ```
 
-All the video and audio you want to combine should be placed in the tmp directory and should be numbered from 1 to _numbOfVideoAndAudio_. For example if you want to combine 3 mp4 video with 3 mp3 audio, you will have in the tmp folder:
-
-|video|audio|video+audio|
-|-----|-----|-----------|
-|1.mp4|1.mp3|   1.mp4   |
-|2.mp4|2.mp3|   2.mp4   |
-|3.mp4|3.mp3|   3.mp4   |
-
-You will find the output under output/video-with-audio
+All the video and audio you want to combine should be placed in the tmp directory. You will find the output under output/video-with-audio

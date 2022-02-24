@@ -3,6 +3,6 @@
 
 using namespace std;
 
-void mergeAllAudioWithVideo(const string&, const string&, const string&, const int &);
-void generateAllMedia(const vector<string> &, const vector<vector<string>> &, vector<int> &, const int&, const int&, const vector<string> &, const string &);
-void generatePreviewGif(const int &, const int &);
+void mergeAllAudioWithVideo(const int &, const string&, const string&, const string&, const int &);
+void generateAllMedia(const vector<string> &, const vector<vector<string>> &, vector<int> &, const int&, const int&, const vector<string> &, const string &, const string &);
+void generatePreviewGif(const int &, const int &, const int &, const int &fps);
