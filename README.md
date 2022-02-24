@@ -11,7 +11,7 @@ If you found my work useful for any of your projects, please make some donations
 
 These are some GIFs/Videos that people generated with my engine:
 
-![Alt Text]() ![Alt Text]() ![Alt Text]()
+![Alt Text](https://github.com/Goldo02/gif_and_video_art_engine/blob/main/example/example3.gif) ![Alt Text](https://github.com/Goldo02/gif_and_video_art_engine/blob/main/example/example5.gif) ![Alt Text](https://github.com/Goldo02/gif_and_video_art_engine/blob/main/example/example6.gif)
 
 https://user-images.githubusercontent.com/58893398/154155400-5ad8134d-5c3b-4311-9b15-4ee5535fb92e.mov
 
@@ -203,7 +203,7 @@ Description of variables:
 
 This is an example of a user-generated preview_gif:
 
-![Alt Text]()
+![Alt Text](https://github.com/Goldo02/gif_and_video_art_engine/blob/main/example/preview_gif1.gif)
 
 
 ### Combine video and audio
