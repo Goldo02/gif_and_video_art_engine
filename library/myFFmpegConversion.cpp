@@ -97,7 +97,7 @@ void generatePreviewGif(const int &firstMedia, const int &numbOfMediaToGen, cons
 static void generateSingleMedia(const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const vector<int> &mediaDna, const string &outputFormat, const int &scale, const int &index)
 {
     int i;
-    string systemCall = "ffmpeg -ss 0 -i ./layers/" + layerDir[0] + "/" + singleLayer[0][mediaDna[0]] + " -i ./layers/" + layerDir[1] + "/" + singleLayer[1][mediaDna[1]];
+    string systemCall = "ffmpeg -i ./layers/" + layerDir[0] + "/" + singleLayer[0][mediaDna[0]] + " -i ./layers/" + layerDir[1] + "/" + singleLayer[1][mediaDna[1]];
     
     for(i=2;i<(int)layerDir.size();++i)
         systemCall += " -i ./layers/" + layerDir[i] + "/" + singleLayer[i][mediaDna[i]];
@@ -118,9 +118,7 @@ static void generateSingleMedia(const vector<string> &layerDir, const vector<vec
     else
         systemCall += ";amix=inputs=" + to_string((int)layerDir.size()) + ":duration=longest\" ";
     systemCall += "./output/media/" + to_string(index) + "." + outputFormat + " -y";
-    
-    cout << systemCall << endl;
-    
+        
     if(system(systemCall.c_str())!=0){
         cerr << "ffmpeg failed.." << endl;
         cerr << "in function 'generateSingleMedia': the command executed was " + systemCall << endl;
