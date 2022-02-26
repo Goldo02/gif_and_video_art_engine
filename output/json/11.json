@@ -1,0 +1,20 @@
+{
+	 "name":"SUrrty Peasy YouTube test #11", 
+	 "description":"i love u",
+	 "image":"https://twittercom/elonmusk/11.gif", 
+	 "dna": " 1 0 ",
+	 "edition":"11", 
+	 "date":"1645895991",
+	 "attributes": [
+	 	 {
+	 	 	 "trait_type": "1-background",
+	 	 	 "value": "Faint Gold"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "2-character",
+	 	 	 "value": "Male Zombie"
+	 	 }
+	 ],
+	 "Compiler": "CeloPunks compiler",
+	 "Github Author": "Goldo02"
+}

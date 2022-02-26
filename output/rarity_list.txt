@@ -3,21 +3,18 @@ Celo_Gray#50.gif: 50
 Faint_Gold#50.gif: 50
 
 2-character
-Male_Zombie#20.gif: 50
-Red_Burning_Woman#80.gif: 50
+Male_Zombie#20.gif: 41.6667
+Red_Burning_Woman#80.gif: 58.3333
 
 3-head
-Top_Hat#30.gif: 28.5714
-Wallstreetbets_Dark_Crazy_Hair#70.gif: 71.4286
+Top_Hat#30.gif: 0
+Wallstreetbets_Dark_Crazy_Hair#70.gif: 83.3333
 
 4-eyes
-Nerd_Glasses#40.gif: 14.2857
-Regular_Shades#60.gif: 57.1429
+Nerd_Glasses#40.gif: 41.6667
+Regular_Shades#60.gif: 41.6667
 
 5-lip
-Purple_Lipstick#50.gif: 42.8571
-Space_Lipstick#50.gif: 28.5714
-
-output.gif
-./layers/output.gif: 0
+Purple_Lipstick#50.gif: 41.6667
+Space_Lipstick#50.gif: 41.6667
 

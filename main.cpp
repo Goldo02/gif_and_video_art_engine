@@ -23,11 +23,11 @@ int main(int argc, char *argv[])
         const bool randomized = false;
         const bool unique = true;
         const bool shuffleOutput = true;
-        vector<int> collectionSize = {10, 4};
+        vector<int> collectionSize = {10, 2};
         const vector<vector<string>> layerDir = 
         {
         {"1-background", "2-character", "3-head", "4-eyes", "5-lip"},
-        {"1-background", "2-character", "3-head"}
+        {"1-background", "2-character"}
         };
         
         const string name = "SUrrty Peasy YouTube test";

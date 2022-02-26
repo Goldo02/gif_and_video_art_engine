@@ -1,0 +1,32 @@
+{
+	 "name":"SUrrty Peasy YouTube test #1", 
+	 "description":"i love u",
+	 "image":"https://twittercom/elonmusk/1.gif", 
+	 "dna": " 0 0 1 0 1 ",
+	 "edition":"1", 
+	 "date":"1645895988",
+	 "attributes": [
+	 	 {
+	 	 	 "trait_type": "1-background",
+	 	 	 "value": "Celo Gray"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "2-character",
+	 	 	 "value": "Male Zombie"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "3-head",
+	 	 	 "value": "Wallstreetbets Dark Crazy Hair"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "4-eyes",
+	 	 	 "value": "Nerd Glasses"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "5-lip",
+	 	 	 "value": "Space Lipstick"
+	 	 }
+	 ],
+	 "Compiler": "CeloPunks compiler",
+	 "Github Author": "Goldo02"
+}
