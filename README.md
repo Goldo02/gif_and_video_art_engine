@@ -207,7 +207,7 @@ This is an example of a user-generated preview_gif:
 
 
 ### Combine video and audio
-To create a preview gif you need to change this part of the code accordly to your needs, then you need to recompile the code, and then you can execute the code.
+To Combine video and audio you need to change this part of the code accordly to your needs, then you need to recompile the code, and then you can execute the code.
 ```c++
 const int firstMedia = 0;
 const int numbOfMediaToGen = 10;
@@ -216,4 +216,4 @@ const string inputAudioForm = "mp3";
 const string outputVideoForm = "mp4";
 ```
 
-All the video and audio you want to combine should be placed in the tmp directory. You will find the output under output/video-with-audio
+All the video and audio you want to combine should be placed in the tmp directory. You will find the output under ./output/video-with-audio
