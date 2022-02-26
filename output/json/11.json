@@ -2,9 +2,9 @@
 	 "name":"SUrrty Peasy YouTube test #11", 
 	 "description":"i love u",
 	 "image":"https://twittercom/elonmusk/11.gif", 
-	 "dna": " 1 0 ",
+	 "dna": " 1 1 0 1 1 ",
 	 "edition":"11", 
-	 "date":"1645895991",
+	 "date":"1645896604",
 	 "attributes": [
 	 	 {
 	 	 	 "trait_type": "1-background",
@@ -12,7 +12,19 @@
 	 	 },
 	 	 {
 	 	 	 "trait_type": "2-character",
-	 	 	 "value": "Male Zombie"
+	 	 	 "value": "Red Burning Woman"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "3-head",
+	 	 	 "value": "Top Hat"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "4-eyes",
+	 	 	 "value": "Regular Shades"
+	 	 },
+	 	 {
+	 	 	 "trait_type": "5-lip",
+	 	 	 "value": "Space Lipstick"
 	 	 }
 	 ],
 	 "Compiler": "CeloPunks compiler",

@@ -40,7 +40,7 @@ static void generateSingleMetadata(const vector<int> &mediaDna, int currGen, con
         else
             fout << "\t \t }" << endl;
     }
-    fout << "\t ]";
+    fout << "\t ]" << endl;
 	if((int)extraMetadata.size()>=1)
 		fout << "," << endl;
     for(int i=0;i<(int)extraMetadata.size();++i){
