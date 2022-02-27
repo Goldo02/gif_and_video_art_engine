@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
         string utility = "NULL";
         vector<vector<vector<string>>> singleLayer((int)collectionSize.size());
         vector<vector<vector<string>>> metadataSingleLayerName((int)collectionSize.size());
-        vector<vector<vector<int>>> rarityList((int)collectionSize.size());
+        vector<vector<vector<int>>> rarityWeight((int)collectionSize.size());
         vector<string> dnaOfAllMedia;
         vector<int> randomIndex;
         
@@ -78,11 +78,11 @@ int main(int argc, char *argv[])
                 deleteAllFilesOfFolder("./output/video_with_audio");
                 deleteFile("./output/preview_gif.gif");
                 for(int i=1;i<(int)collectionSize.size();++i){
-                    readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityList[i-1]);
+                    readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1]);
                     if(randomized)
                         genAndSaveDnaRandomly(layerDir[i-1], singleLayer[i-1], collectionSize, i, dnaOfAllMedia, unique);
                     else
-                        genAndSaveDnaWithRarity(layerDir[i-1], singleLayer[i-1], rarityList[i-1], collectionSize, i, dnaOfAllMedia, unique);
+                        genAndSaveDnaWithRarity(layerDir[i-1], singleLayer[i-1], rarityWeight[i-1], collectionSize, i, dnaOfAllMedia, unique);
                 }
                 createRarityFile("./output/rarity_list.txt", collectionSize[(int)collectionSize.size()-1]);
                 deleteCharactersFromDnas(dnaOfAllMedia);
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
                 readDnaFromFile(dnaOfAllMedia);
                 deleteCharactersFromDnas(dnaOfAllMedia);
                 for(int i=1;i<(int)collectionSize.size();++i){
-                readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityList[i-1]);
+                readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1]);
                     if(chain=="SOL")
                         generateAllMediaSolanaMetadata(layerDir[i-1], singleLayer[i-1], name, description, symbol, family, sellerFeeBasisPoints, externalUrl, address, share, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
                     else
