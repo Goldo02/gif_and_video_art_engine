@@ -7,7 +7,7 @@ If you found my work useful for any of your projects, please make some donations
 
 **MetaMask address**: 0xaE9d8FD177c22D88159F2773998dB07CAf40693d
 
-**Discord username**: luffy2023 il cane fifone#2742 -> contact me if you need help
+**Discord username**: luffy2023#2742 -> contact me if you need help
 
 These are some GIFs/Videos that people generated with my engine:
 
