@@ -1,0 +1,12 @@
+ 1-background 1 2-character 1 3-head 0 4-eyes 0 5-lip 0
+ 1-background 0 2-character 1 3-head 1 4-eyes 0 5-lip 1
+ 1-background 0 2-character 0 3-head 1 4-eyes 1 5-lip 0
+ 1-background 0 2-character 1 3-head 0 4-eyes 1 5-lip 1
+ 1-background 1 2-character 1 3-head 1 4-eyes 0 5-lip 0
+ 1-background 1 2-character 1 3-head 1 4-eyes 1 5-lip 1
+ 1-background 0 2-character 1 3-head 1 4-eyes 1 5-lip 0
+ 1-background 1 2-character 1 3-head 1 4-eyes 1 5-lip 0
+ 1-background 0 2-character 1 3-head 1 4-eyes 0 5-lip 0
+ 1-background 0 2-character 0 3-head 0 4-eyes 1 5-lip 1
+ 1-background 0 2-character 0
+ 1-background 0 2-character 1

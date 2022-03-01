@@ -145,7 +145,7 @@ void generateMetadataJson(const int &numbOfMediaToGen, const string &chain)
         }
         while(getline(fin, buffer))
             fout << "\t" << buffer << endl;
-        if(i!=numbOfMediaToGen)
+        if(i!=numbOfMediaToGen-adjustForChain)
             fout << "\t ," << endl;
         else
             fout << endl;
