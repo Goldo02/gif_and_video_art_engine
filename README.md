@@ -24,6 +24,8 @@ https://user-images.githubusercontent.com/58893398/154155423-2bf37ab8-8c30-4c72-
 
 - Each Gif/Video you put as layer should have the same size, length and number of frames of the others. If this condition won't be respected some layers will probably become static after a period of time.
 
+- Every video file must have the audio track, even if it is empty.
+
 - I'm really sorry if you will find some bugs trying to run the code. If you find some, please open an issue, so i can know what the problem is and i can fix it, in my free time.
 
 
