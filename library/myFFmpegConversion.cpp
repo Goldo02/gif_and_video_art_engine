@@ -104,7 +104,7 @@ static void generateSingleMedia(const vector<string> &layerDir, const vector<vec
     
     systemCall += " -filter_complex \"";
     systemCall += "[0][1]overlay=format=auto";
-	if((int)layerDir.size()-3<=0)
+	if((int)layerDir.size()-2<=0)
 		systemCall += ",scale=" + to_string(scale) + ":-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
 	else{
 		systemCall += "[i1];";
