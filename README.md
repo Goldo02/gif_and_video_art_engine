@@ -7,6 +7,8 @@ If you found my work useful for any of your projects, please make some donations
 
 **MetaMask address**: 0xaE9d8FD177c22D88159F2773998dB07CAf40693d
 
+**Phantom address**: A1U2hsvAANsmXGhm9vEvQz5T1JvExACWZpM8ckqpwDRc
+
 **Discord username**: luffy2023#2742 -> contact me if you need help
 
 These are some GIFs/Videos that people generated with my engine:
