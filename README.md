@@ -85,7 +85,7 @@ After that, open the terminal and move to the folder where you cloned the projec
 
 To compile the _main.cpp_ file use the command: 
 ```
-g++ ./library/dnaGenerator.cpp ./library/metadataFunction.cpp ./library/myFFmpegConversion.cpp ./library/utils.cpp main.cpp -o main
+g++ ./library/dna_generator.cpp ./library/metadata_function.cpp ./library/my_ffmpeg_conversion.cpp ./library/utils.cpp main.cpp -o main
 ```
 
 To run the code and generate the art with opensea standard metadata:
