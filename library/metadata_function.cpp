@@ -1,18 +1,16 @@
-#include "metadataFunction.hpp"
+#include "metadata_function.hpp"
 #include "utils.hpp"
 
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 #include <fstream>
-#include <utility>
 
 using namespace std;
 
 static void generateSingleMetadata(const vector<int> &mediaDna, int currGen, const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const string &name, const string &description, const string &image, const vector<pair<string,string>> &extraMetadata, const string &format)
 {
+    clog << "Entered the function: 'generateSingleMetadata'" << endl;
     string dna = "";
     ofstream fout("./output/json/" + to_string(currGen) + ".json");
     if(fout.fail()){
@@ -31,6 +29,7 @@ static void generateSingleMetadata(const vector<int> &mediaDna, int currGen, con
     fout << "\t \"edition\":\"" + to_string(currGen) + "\"," << endl;
     fout << "\t \"date\":\"" + to_string(time(NULL)) + "\"," << endl;
     fout << "\t \"attributes\": [" << endl;
+    clog << "Printing traits ..." << endl;
     for(int i=0;i<(int)layerDir.size();++i){
         fout << "\t \t {" << endl;
         fout << "\t \t \t \"trait_type\": \"" + layerDir[i] + "\"," << endl;
@@ -41,8 +40,9 @@ static void generateSingleMetadata(const vector<int> &mediaDna, int currGen, con
             fout << "\t \t }" << endl;
     }
     fout << "\t ]";
-	if((int)extraMetadata.size()>=1)
-		fout << "," << endl;
+    clog << "Printing extra metadata ..." << endl;
+    if((int)extraMetadata.size()>=1)
+        fout << "," << endl;
     for(int i=0;i<(int)extraMetadata.size();++i){
         fout << "\t \"" + extraMetadata[i].first + "\": \"" + extraMetadata[i].second + "\"";
         if(i!=(int)extraMetadata.size()-1)
@@ -52,11 +52,13 @@ static void generateSingleMetadata(const vector<int> &mediaDna, int currGen, con
     }
     fout << "}" << endl;
     fout.close();
+    clog << "Exiting the function: 'generateSingleMetadata'" << endl;
     return;
 }
 
 static void generateSingleSolanaMetadata(const vector<int> &mediaDna, int currGen, const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const string &name, const string &description, const string &symbol, const string &family, const string &sellerFeeBasisPoints, const string &externalUrl, const vector<string> &address, const vector<string> &share, const vector<pair<string,string>> &extraMetadata, const string &format)
 {
+    clog << "Entered the function: 'generateSingleSolanaMetadata'" << endl;
     string dna = "", category;
     ofstream fout("./output/json/" + to_string(currGen) + ".json");
     if(fout.fail()){
@@ -84,6 +86,7 @@ static void generateSingleSolanaMetadata(const vector<int> &mediaDna, int currGe
     fout << "\t \"edition\":" + to_string(currGen) + "," << endl;
     fout << "\t \"date\":\"" + to_string(time(NULL)) + "\"," << endl;
     fout << "\t \"attributes\": [" << endl;
+    clog << "Printing traits ..." << endl;
     for(int i=0;i<(int)layerDir.size();++i){
         fout << "\t \t {" << endl;
         fout << "\t \t \t \"trait_type\": \"" + layerDir[i] + "\"," << endl;
@@ -93,6 +96,7 @@ static void generateSingleSolanaMetadata(const vector<int> &mediaDna, int currGe
         else
             fout << "\t \t }" << endl;
     }
+    clog << "Printing creator info ..." << endl;
     fout << "\t ]," << endl;
     fout << "\t \"properties\": {" << endl;
     fout << "\t \t \"creators\": [" << endl;
@@ -106,6 +110,7 @@ static void generateSingleSolanaMetadata(const vector<int> &mediaDna, int currGe
     fout << "\t \t \"category\": \"" + category + "\"," << endl;
     fout << "\t \t \"files\": [{\"uri\": \"" + to_string(currGen) + "." + format +"\", \"type\": \"" + category + "/" + format + "\"}]" << endl;
     fout << "\t }"; 
+    clog << "Printing extra metadata ..." << endl;
     if((int)extraMetadata.size()>=1)
 		fout << "," << endl;
     for(int i=0;i<(int)extraMetadata.size();++i){
@@ -117,11 +122,13 @@ static void generateSingleSolanaMetadata(const vector<int> &mediaDna, int currGe
     }
     fout << "}" << endl;
     fout.close();
+    clog << "Exiting the function: 'generateSingleSolanaMetadata'" << endl;
     return;
 }
 
 void generateMetadataJson(const int &numbOfMediaToGen, const string &chain)
 {
+    clog << "Entered the function: 'generateMetadataJson'" << endl;
     ofstream fout("./output/json/_metadata.json");
     ifstream fin;
     string buffer;
@@ -139,6 +146,7 @@ void generateMetadataJson(const int &numbOfMediaToGen, const string &chain)
     fout << "[" << endl;
     for(;i<=numbOfMediaToGen-adjustForChain;++i){ //da cambiare
         fin.open("./output/json/" + to_string(i) + ".json");
+        clog << "Printing the file './output/json/" + to_string(i) + ".json'" << endl;
         if(fin.fail()){
             cerr << "in function 'generateMetadataJson': error while opening in reading the file ./output/json/" + to_string(i) + ".json" << endl;
             exit(2);
@@ -154,25 +162,30 @@ void generateMetadataJson(const int &numbOfMediaToGen, const string &chain)
     fout << "]" << endl;
     
     fout.close();
+    clog << "Exiting the function: 'generateMetadataJson'" << endl;
     return;
 }
 
 void generateAllMediaMetadata(const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const string &name, const string &description, const string &image, const vector<pair<string,string>> &extraMetadata, const vector<int> &collectionSize, const int &collIndex, vector<string> &dnaOfAllMedia, const string &format)
 {
+    clog << "Entered the function: 'generateAllMediaMetadata'" << endl;
     vector<int> mediaDna((int)layerDir.size());
     for(int i=collectionSize[collIndex-1]+1;i<=collectionSize[collIndex];++i){
         extractInteger(dnaOfAllMedia[i-1], mediaDna);
         generateSingleMetadata(mediaDna, i, layerDir, singleLayer, name, description, image, extraMetadata, format);
     }
+    clog << "Exiting the function: 'generateAllMediaMetadata'" << endl;
     return;
 }
 
 void generateAllMediaSolanaMetadata(const vector<string> &layerDir, const vector<vector<string>> &singleLayer, const string &name, const string &description, const string &symbol, const string &family, const string &sellerFeeBasisPoints, const string &externalUrl, const vector<string> &address, const vector<string> &share, const vector<pair<string,string>> &extraMetadata, const vector<int> &collectionSize, const int &collIndex, vector<string> &dnaOfAllMedia, const string &format)
 {
+    clog << "Entered the function: 'generateAllMediaSolanaMetadata'" << endl;
     vector<int> mediaDna((int)layerDir.size());
     for(int i=collectionSize[collIndex-1];i<collectionSize[collIndex];++i){
         extractInteger(dnaOfAllMedia[i], mediaDna);
         generateSingleSolanaMetadata(mediaDna, i, layerDir, singleLayer, name, description, symbol, family, sellerFeeBasisPoints, externalUrl, address, share, extraMetadata, format);
     }
+    clog << "Exiting the function: 'generateAllMediaSolanaMetadata'" << endl;
     return;
 }

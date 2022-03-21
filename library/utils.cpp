@@ -4,39 +4,52 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <sstream>
 #include <fstream>
+#include <sstream>
 #include <cstdlib>
 #include <ctime>
 
 using namespace std;
 
-static void createLsFile(const string inputPath, const string outputPath)
+void createLsFile(const string inputPath, const string outputPath)
 {
+    clog << "Entered the function: 'createLsFile'" << endl;
+    
     string systemCall = "ls " + inputPath + " > " + outputPath;
+    
+    clog << "Executing the system call: " + systemCall << " ..." << endl;
     
     if(system(systemCall.c_str())!=0){
         cerr << "ls failed.." << endl;
-        cerr << "in function 'createLsFile': the command executed was " + systemCall << endl;
-        exit(1);
+        cerr << "In function 'createLsFile': the command executed was " + systemCall << endl;
+        exit(3);
     }
+    
+    clog << "Done" << endl;
+    clog << "Exiting the function: 'createLsFile'" << endl;
     return;
 }
 
 void deleteFile(string fileToDelete)
 {
+    clog << "Entered the function: 'deleteFile'" << endl;
+    clog << "Deleting the file: " + fileToDelete << " ..." << endl;
     if(remove(fileToDelete.c_str())!=0)
-        cerr << "in function 'deleteFile': error while deleting the file / file not found " + fileToDelete << endl;
+        cerr << "In function 'deleteFile': error while deleting the file / file not found " + fileToDelete << endl;
     else
         clog << fileToDelete + " successfully deleted" << endl;
+    clog << "Exiting the function: 'deleteFile'" << endl;
     return;
 }
 
 void createRarityFile(string pathOutput, const int &numOfMedia)
 {
+    clog << "Entered the function: 'createRarityFile'" << endl;
+    
     vector<string> allDir;
     vector<vector<string>> allLayers;
     vector<vector<int>> trueRarity;
+    
     int index;
     ifstream fin;
     ofstream fout;
@@ -46,13 +59,16 @@ void createRarityFile(string pathOutput, const int &numOfMedia)
     
     fin.open("./tmp/list_layers.txt");
     if(fin.fail()){
-        cerr << "in function 'createRarityFile': error while opening in reading the file ./tmp/list_layers.txt" << endl;
+        cerr << "In function 'createRarityFile': error while opening in reading the file ./tmp/list_layers.txt" << endl;
         exit(2);
     }
     
+    clog << "Reading in the vector 'allDir' the content of ./tmp/list_layers.txt" << endl;
     while(fin>>buffer)
         allDir.push_back(buffer);
     fin.close();
+    clog << "Content readed" << endl;
+    
     allLayers.resize((int)allDir.size());
     trueRarity.resize((int)allDir.size());
 
@@ -64,8 +80,10 @@ void createRarityFile(string pathOutput, const int &numOfMedia)
             exit(2);
         }
         
+        clog << "Reading in the vector 'allLayers' the content of ./tmp/list_layers.txt which contains the layer nr " + to_string(i+1) << endl;
         while(fin>>buffer)
             allLayers[i].push_back(buffer);
+        clog << "Content readed" << endl;
         
         trueRarity[i].resize((int)allLayers[i].size(), 0);
         fin.close();
@@ -76,11 +94,14 @@ void createRarityFile(string pathOutput, const int &numOfMedia)
         cerr << "in function 'createRarityFile': error while opening in reading the file ./tmp/media_dna.txt" << endl;
         exit(2);
     }
+    
+    clog << "Counting the single traits ..." << endl;
     while(fin>>buffer>>index){
         int pos;
         for(pos=0;allDir[pos]!=buffer&&pos<(int)allDir.size();++pos);
         ++trueRarity[pos][index];
     }
+    clog << "Finished counting" << endl;
     
     fin.close();
     fout.open(pathOutput);
@@ -88,27 +109,35 @@ void createRarityFile(string pathOutput, const int &numOfMedia)
         cerr << "in function 'createRarityFile': error while opening in writing the file " + pathOutput << endl;
         exit(2);
     }
+    
+    clog << "Printing rarities file" << endl;
     for(int i=0;i<(int)allLayers.size();++i){
         fout << allDir[i] << endl;
         for(int j=0;j<(int)allLayers[i].size();++j)
             fout << allLayers[i][j] << ": " << (double)trueRarity[i][j] * 100 / (double)numOfMedia << endl;
         fout << endl;
     }
-    
     fout.close();
+    
+    clog << "Finished printing" << endl;
+    clog << "Exiting the function: 'createRarityFile'" << endl;
     return;
 }
 
-void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>> &singleLayer, vector<vector<string>> &metadataSingleLayerName, vector<vector<int>> &rarityList)
+void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>> &singleLayer, vector<vector<string>> &metadataSingleLayerName, vector<vector<int>> &rarityWeight)
 {
+    clog << "Entered the function: 'readLayersAndRaritys'" << endl;
+    
     string buffer;
     ifstream fin;
     
     singleLayer.resize((int)layerDir.size());
     metadataSingleLayerName.resize((int)layerDir.size());
-    rarityList.resize((int)layerDir.size());
+    rarityWeight.resize((int)layerDir.size());
     
     for(int i=0;i<(int)layerDir.size();++i){
+        clog << "Memorizing traits layer nr " + to_string(i+1) + " ..." << endl;
+        
         createLsFile("./layers/" + layerDir[i], "./tmp/list_layers.txt");
         fin.open("./tmp/list_layers.txt");
         if(fin.fail()){
@@ -121,47 +150,25 @@ void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>>
             metadataSingleLayerName[i].push_back(singleLayer[i][j].substr(0, singleLayer[i][j].find("#")));
             replace(metadataSingleLayerName[i][j].begin(), metadataSingleLayerName[i][j].end(), '_', ' ');
             try{
-                rarityList[i].push_back(stoi(singleLayer[i][j].substr(singleLayer[i][j].find("#")+1)));
+                rarityWeight[i].push_back(stoi(singleLayer[i][j].substr(singleLayer[i][j].find("#")+1)));
             }
             catch(invalid_argument const &exc){
                 clog << "invalid_argument exception thrown, caused by stoi in readAllLayersAndRaritys" << endl;
-                rarityList[i].push_back(0);
+                rarityWeight[i].push_back(0);
             }
         }
         
+        clog << "Finished memorizing traits layer nr " + to_string(i+1) << endl;
         fin.close();
     }
-    return;
-}
-
-void convertCollectionSize(vector<int> &collectionSize)
-{
-    collectionSize.insert(collectionSize.begin(), 0);
-    for(int i=1;i<(int)collectionSize.size();++i)
-        collectionSize[i] += collectionSize[i-1];
-    return;
-}
-
-void deleteAllFilesOfFolder(string pathToDelete)
-{
-    ifstream fin;
-    string buffer;
-    createLsFile(pathToDelete, pathToDelete + "/delete_all.txt");
-    
-    fin.open(pathToDelete + "/delete_all.txt");
-    if(fin.fail()){
-        cerr << "in function 'deleteAllFilesOfFolder': error while opening in reading the file " + pathToDelete + "/delete_all.txt" << endl;
-        exit(2);
-    }
-    while(fin>>buffer)
-        deleteFile(pathToDelete + "/" + buffer);
-    fin.close();
-    
+    clog << "Exiting the function: 'readLayersAndRaritys'" << endl;
     return;
 }
 
 void extractInteger(const string &str, vector<int> &mediaDna)
 {
+    clog << "Entered the function: 'extractInteger'" << endl;
+    
     int i = 0;
     stringstream ss;
     
@@ -180,11 +187,49 @@ void extractInteger(const string &str, vector<int> &mediaDna)
         
         temp = "";
     }
+
+    clog << "Exiting the function: 'extractInteger'" << endl;
+    return;
+}
+
+void convertCollectionSize(vector<int> &collectionSize)
+{
+    clog << "Entered the function: 'convertCollectionSize'" << endl;
+    
+    collectionSize.insert(collectionSize.begin(), 0);
+    for(int i=1;i<(int)collectionSize.size();++i)
+        collectionSize[i] += collectionSize[i-1];
+    
+    clog << "Exiting the function: 'convertCollectionSize'" << endl;
+    return;
+}
+
+void deleteAllFilesOfFolder(string pathToDelete)
+{
+    clog << "Entered the function: 'deleteAllFilesOfFolder'" << endl;
+    
+    ifstream fin;
+    string buffer;
+    createLsFile(pathToDelete, pathToDelete + "/delete_all.txt");
+    
+    fin.open(pathToDelete + "/delete_all.txt");
+    if(fin.fail()){
+        cerr << "in function 'deleteAllFilesOfFolder': error while opening in reading the file " + pathToDelete + "/delete_all.txt" << endl;
+        exit(2);
+    }
+    while(fin>>buffer)
+        deleteFile(pathToDelete + "/" + buffer);
+    fin.close();
+    
+    clog << "Exiting the function: 'deleteAllFilesOfFolder'" << endl;
+    
     return;
 }
 
 void deleteCharactersFromDnas(vector<string> &dnaOfAllMedia)
 {
+    clog << "Entered the function: 'deleteCharactersFromDnas'" << endl;
+    
     bool copyChar;
     string buffer;
     for(int i=0;i<(int)dnaOfAllMedia.size();++i){
@@ -200,11 +245,15 @@ void deleteCharactersFromDnas(vector<string> &dnaOfAllMedia)
         }
         dnaOfAllMedia[i] = buffer;
     }
+    
+    clog << "Exiting the function: 'deleteCharactersFromDnas'" << endl;
     return;
 }
 
 void readDnaFromFile(vector<string> &dnaOfAllMedia)
 {
+    clog << "Entered the function: 'readDnaFromFile'" << endl;
+    
     ifstream fin("./tmp/media_dna.txt");
     if(fin.fail()){
         cerr << "in function 'readDnaFromFile': error while opening in reading the file ./tmp/media_dna.txt" << endl;
@@ -215,11 +264,15 @@ void readDnaFromFile(vector<string> &dnaOfAllMedia)
         getline(fin, dnaOfAllMedia[i]);
     
     fin.close();
+    
+    clog << "Exiting the function: 'readDnaFromFile'" << endl;
     return;
 }
 
 void createShuffleFile(const int &numOfMedia)
 {
+    clog << "Entered the function: 'createShuffleFile'" << endl;
+    
     srand(time(NULL));
     ofstream fout("./tmp/shuffle_code.txt");
     if(fout.fail()){
@@ -231,11 +284,14 @@ void createShuffleFile(const int &numOfMedia)
         fout << (rand() % numOfMedia) + 1<< endl;
     
     fout.close();
+    
+    clog << "Exiting the function: 'createShuffleFile'" << endl;
     return;
 }
 
 void reversePrevShuffle(const string &chain, const int &numOfMedia, const vector<int> &randomIndex, const string &outputFormat)
 {
+    clog << "Entered the function: 'reversePrevShuffle'" << endl;
     int adjustForChain = 0, i = numOfMedia;
 
     if(chain=="SOL"){
@@ -256,18 +312,22 @@ void reversePrevShuffle(const string &chain, const int &numOfMedia, const vector
             rename(string("./output/media/tmp." + outputFormat).c_str(), string("./output/media/" + to_string(randomIndex[i-1]) + "." + outputFormat).c_str());
         }
     }
+
+    clog << "Exiting the function: 'reversePrevShuffle'" << endl;
     return;
 }
 
 //*image si può togliere penso
 void swapTwoJsonContentOnSolana(const string &name, const string &image, const string &outputFormat, const int &indexA, const int &indexB)
 {
+    clog << "Entered the function: 'swapTwoJsonContentOnSolana'" << endl;
+    
     string buffer, fileA, fileB, category;
     ifstream fin("./output/json/" + to_string(indexA) + ".json");
     ofstream fout;
     
     if(fin.fail()){
-        cerr << "tokerrore durante l'apertura del file json n" + to_string(indexA) << endl;
+        cerr << "in function 'swapTwoJsonContentOnSolana': error while opening in reading the file ./output/json/" + to_string(indexA) + ".json" << endl;
         exit(2);
     }
 
@@ -300,7 +360,7 @@ void swapTwoJsonContentOnSolana(const string &name, const string &image, const s
     
     fin.open("./output/json/" + to_string(indexB) + ".json");
     if(fin.fail()){
-        cerr << "tokerrore durante l'apertura del file json n" + to_string(indexA) << endl;
+        cerr << "in function 'swapTwoJsonContentOnSolana': error while opening in reading the file ./output/json/" + to_string(indexB) + ".json" << endl;
         exit(2);
     }
     
@@ -329,7 +389,7 @@ void swapTwoJsonContentOnSolana(const string &name, const string &image, const s
     
     fout.open("./output/json/" + to_string(indexB) + ".json");
     if(fout.fail()){
-        cerr << "errore durante l'apertura in scrittura del json n" + to_string(indexA) << endl;
+        cerr << "in function 'swapTwoJsonContentOnSolana': error while opening in writing the file ./output/json/" + to_string(indexB) + ".json" << endl;
         exit(2);
     }
     
@@ -338,17 +398,21 @@ void swapTwoJsonContentOnSolana(const string &name, const string &image, const s
     
     fout.open("./output/json/" + to_string(indexA) + ".json");
     if(fout.fail()){
-        cerr << "errore durante l'apertura in scrittura del json n" + to_string(indexA) << endl;
+        cerr << "in function 'swapTwoJsonContentOnSolana': error while opening in writing the file ./output/json/" + to_string(indexA) + ".json" << endl;
         exit(2);
     }
 
     fout << fileB;
     fout.close();
+    
+    clog << "Exiting the function: 'swapTwoJsonContentOnSolana'" << endl;
     return;
 }
 
 static void swapTwoJsonContent(const string &name, const string &image, const string &outputFormat, const int &indexA, const int &indexB)
 {
+    clog << "Entered the function: 'swapTwoJsonContent'" << endl;
+    
     string buffer, fileA, fileB;
     ifstream fin("./output/json/" + to_string(indexA) + ".json");
     ofstream fout;
@@ -411,11 +475,14 @@ static void swapTwoJsonContent(const string &name, const string &image, const st
     fout << fileB;
     fout.close();
     
+    clog << "Exiting the function: 'swapTwoJsonContent'" << endl;
     return;
 }
 
 void readRandomIndex(vector<int> &randomIndex, const string &chain)
 {
+    clog << "Entered the function: 'readRandomIndex'" << endl;
+    
     ifstream fin("./tmp/shuffle_code.txt");
     if(fin.fail()){
         cerr << "in function 'readRandomIndex': error while opening in reading the file ./tmp/shuffle_code.txt" << endl;
@@ -429,11 +496,15 @@ void readRandomIndex(vector<int> &randomIndex, const string &chain)
     }
     
     fin.close();
+    
+    clog << "Exiting the function: 'readRandomIndex'" << endl;
     return;
 }
 
 void shuffleCollection(vector<int> &randomIndex, const string &name, const string &image, const string &outputFormat, const string &chain, const int &numOfMedia)
 {
+    clog << "Entered the function: 'shuffleCollection'" << endl;
+    
     int adjustForChain = 0, i = 1;
 
     if(chain=="SOL"){
@@ -456,6 +527,7 @@ void shuffleCollection(vector<int> &randomIndex, const string &name, const strin
             rename(string("./output/media/tmp." + outputFormat).c_str(), string("./output/media/" + to_string(randomIndex[i-1]) + "." + outputFormat).c_str());
         }
     }
-    
+    clog << "Exiting the function: 'shuffleCollection'" << endl;
+        
     return;
 }

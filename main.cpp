@@ -4,12 +4,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
-#include <utility>
-#include <numeric>
 
-#include "./library/myFFmpegConversion.hpp"
-#include "./library/metadataFunction.hpp"
-#include "./library/dnaGenerator.hpp"
+#include "./library/my_ffmpeg_conversion.hpp"
+#include "./library/metadata_function.hpp"
+#include "./library/dna_generator.hpp"
 #include "./library/utils.hpp"
 
 using namespace std;
@@ -22,12 +20,11 @@ int main(int argc, char *argv[])
         const string outputFormat = "gif";
         const bool randomized = false;
         const bool unique = true;
-        const bool shuffleOutput = true;
-        vector<int> collectionSize = {10, 2};
+        const bool shuffleOutput = false;
+        vector<int> collectionSize = {32};
         const vector<vector<string>> layerDir = 
         {
-        {"1-background", "2-character", "3-head", "4-eyes", "5-lip"},
-        {"1-background", "2-character"}
+        {"1-background", "2-character", "3-head", "4-eyes", "5-lip"}
         };
         
         const string name = "SUrrty Peasy YouTube test";
@@ -70,6 +67,7 @@ int main(int argc, char *argv[])
         convertCollectionSize(collectionSize); 
         randomIndex.resize(collectionSize[(int)collectionSize.size()-1]);
         dnaOfAllMedia.resize(collectionSize[(int)collectionSize.size()-1]);
+        addEmptyTrackAudioToVideos();
         if(argc==2){
             if((int)collectionSize.size()>=1){
                 deleteAllFilesOfFolder("./tmp");
@@ -128,11 +126,19 @@ int main(int argc, char *argv[])
                 generatePreviewGif(firstMedia, numbOfMediaToGen, scale, fps);
             else if(utility=="combine_video_with_audio")
                 mergeAllAudioWithVideo(firstMedia, inputVideoForm, inputAudioForm, outputVideoForm, numbOfMediaToGen);
-            else
+            else{
                 cerr << "parameters invalid, check your input" << endl;
+                
+            }
         }
     }
     else
         cerr << "number of parameters invalid, check your input" << endl;
  return 0;
 }
+
+/*
+    exit(1) -> for ffmpeg error
+    exit(2) -> for reading / writing operation from file
+    exit(3) -> for some user input error
+*/
