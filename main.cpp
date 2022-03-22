@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
                 deleteCharactersFromDnas(dnaOfAllMedia);
                 for(int i=1;i<(int)collectionSize.size();++i){
                     if(chain=="SOL")
-                        generateAllMediaSolanaMetadata(layerDir[i-1], singleLayer[i-1], name, description, symbol, family, sellerFeeBasisPoints, externalUrl, address, share, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
+                        generateAllMediaSolanaMetadata(layerDir[i-1], metadataSingleLayerName[i-1], name, description, symbol, family, sellerFeeBasisPoints, externalUrl, address, share, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
                     else
                         generateAllMediaMetadata(layerDir[i-1], metadataSingleLayerName[i-1], name, description, baseUri, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
                     generateAllMedia(layerDir[i-1], singleLayer[i-1], collectionSize, i, scale, dnaOfAllMedia, outputFormat, chain);
