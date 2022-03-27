@@ -184,7 +184,7 @@ void generateAllMedia(const vector<string> &layerDir, const vector<vector<string
 static void addEmptyAudioTraceIfThereIsNoOne(string pathInput, string pathOutput)
 {
     clog << "Exiting the function: 'addEmptyAudioTraceIfThereIsNoOne'" << endl;
-    string systemCall = "ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -i " + pathInput + " -c:v copy -c:a aac -shortest " + pathOutput;
+    string systemCall = "ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -i " + pathInput + " -c:v copy -c:a aac -shortest " + pathOutput + " -y";
     if(system(systemCall.c_str())!=0){
         cerr << "ffmpeg failed.." << endl;
         cerr << "in function 'addEmptyAudioTraceIfThereIsNoOne': the command executed was " + systemCall << endl;
