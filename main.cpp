@@ -64,10 +64,12 @@ int main(int argc, char *argv[])
         vector<string> dnaOfAllMedia;
         vector<int> randomIndex;
         
+        isPossibleToGenerateAllTheCollections(unique, collectionSize, layerDir);
+        
         convertCollectionSize(collectionSize); 
         randomIndex.resize(collectionSize[(int)collectionSize.size()-1]);
         dnaOfAllMedia.resize(collectionSize[(int)collectionSize.size()-1]);
-        addEmptyTrackAudioToVideos();
+        //addEmptyTrackAudioToVideos(); //it is preferable to uncomment this line if u are working with files without an audio track
         if(argc==2){
             if((int)collectionSize.size()>=1){
                 deleteAllFilesOfFolder("./tmp");
@@ -76,7 +78,7 @@ int main(int argc, char *argv[])
                 deleteAllFilesOfFolder("./output/video_with_audio");
                 deleteFile("./output/preview_gif.gif");
                 for(int i=1;i<(int)collectionSize.size();++i){
-                    readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1]);
+                    readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1], randomized);
                     if(randomized)
                         genAndSaveDnaRandomly(layerDir[i-1], singleLayer[i-1], collectionSize, i, dnaOfAllMedia, unique);
                     else
@@ -109,7 +111,7 @@ int main(int argc, char *argv[])
                 readDnaFromFile(dnaOfAllMedia);
                 deleteCharactersFromDnas(dnaOfAllMedia);
                 for(int i=1;i<(int)collectionSize.size();++i){
-                readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1]);
+                readLayersAndRaritys(layerDir[i-1], singleLayer[i-1], metadataSingleLayerName[i-1], rarityWeight[i-1], randomized);
                     if(chain=="SOL")
                         generateAllMediaSolanaMetadata(layerDir[i-1], metadataSingleLayerName[i-1], name, description, symbol, family, sellerFeeBasisPoints, externalUrl, address, share, extraMetadata, collectionSize, i, dnaOfAllMedia, outputFormat);
                     else

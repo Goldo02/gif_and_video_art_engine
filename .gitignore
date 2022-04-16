@@ -31,4 +31,7 @@
 *.out
 *.app
 
+# Main file
+main
+
 

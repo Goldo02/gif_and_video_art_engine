@@ -8,7 +8,7 @@ using namespace std;
 
 void createRarityFile(string, const int &);
 
-void readLayersAndRaritys(const vector<string> &, vector<vector<string>> &, vector<vector<string>> &, vector<vector<int>> &);
+void readLayersAndRaritys(const vector<string> &, vector<vector<string>> &, vector<vector<string>> &, vector<vector<int>> &, const bool &);
 
 //used to operate with some terminal commands
 void createLsFile(const string, const string);
@@ -27,5 +27,7 @@ void createShuffleFile(const int &);
 void reversePrevShuffle(const string &, const int &, const vector<int> &, const string &);
 void shuffleCollection(vector<int> &, const string &, const string &, const string &, const string &, const int &);
 void readRandomIndex(vector<int> &, const string &);
+
+void isPossibleToGenerateAllTheCollections(const bool &, vector<int> &, const vector<vector<string>> &);
 
 #endif 

@@ -124,7 +124,7 @@ void createRarityFile(string pathOutput, const int &numOfMedia)
     return;
 }
 
-void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>> &singleLayer, vector<vector<string>> &metadataSingleLayerName, vector<vector<int>> &rarityWeight)
+void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>> &singleLayer, vector<vector<string>> &metadataSingleLayerName, vector<vector<int>> &rarityWeight, const bool &randomized)
 {
     clog << "Entered the function: 'readLayersAndRaritys'" << endl;
     
@@ -145,16 +145,28 @@ void readLayersAndRaritys(const vector<string> &layerDir, vector<vector<string>>
             exit(2);
         }
         
-        for(int j=0;fin>>buffer;++j){
+        for(int j=0;getline(fin,buffer);++j){
             singleLayer[i].push_back(buffer);
-            metadataSingleLayerName[i].push_back(singleLayer[i][j].substr(0, singleLayer[i][j].find("#")));
-            replace(metadataSingleLayerName[i][j].begin(), metadataSingleLayerName[i][j].end(), '_', ' ');
-            try{
-                rarityWeight[i].push_back(stoi(singleLayer[i][j].substr(singleLayer[i][j].find("#")+1)));
+            if(singleLayer[i][j].find(" ")!=string::npos){
+                clog << "A space was found in the file name" << endl;
+                clog << "Check the file: ./layers/" + layerDir[i] + "/" + singleLayer[i][j] << endl;
+                exit(3);
             }
-            catch(invalid_argument const &exc){
-                clog << "invalid_argument exception thrown, caused by stoi in readAllLayersAndRaritys" << endl;
-                rarityWeight[i].push_back(0);
+            else if(singleLayer[i][j].find("#")==string::npos && !randomized){
+                clog << "Randomized set to false, but the '#' specifier was not found" << endl;
+                clog << "Check the file: ./layers/" + layerDir[i] + "/" + singleLayer[i][j] << endl;
+                exit(3);
+            }
+            else{
+                metadataSingleLayerName[i].push_back(singleLayer[i][j].substr(0, singleLayer[i][j].find("#")));
+                replace(metadataSingleLayerName[i][j].begin(), metadataSingleLayerName[i][j].end(), '_', ' ');
+                try{
+                    rarityWeight[i].push_back(stoi(singleLayer[i][j].substr(singleLayer[i][j].find("#")+1)));
+                }
+                catch(invalid_argument const &exc){
+                    clog << "invalid_argument exception thrown, caused by stoi in readAllLayersAndRaritys" << endl;
+                    rarityWeight[i].push_back(0);
+                }
             }
         }
         
@@ -529,5 +541,55 @@ void shuffleCollection(vector<int> &randomIndex, const string &name, const strin
     }
     clog << "Exiting the function: 'shuffleCollection'" << endl;
         
+    return;
+}
+
+static void countNumberOfFilesInADirectory(const string directory)
+{
+    clog << "Entered the function: 'countNumberOfFilesInADirectory'" << endl;
+    
+    string systemCall = "ls " + directory + " -1 | wc -l > ./tmp/numberOfFilesInADirectory.txt";
+    
+    clog << "Executing the system call: " + systemCall << " ..." << endl;
+    
+    if(system(systemCall.c_str())!=0){
+        cerr << "Command failed.." << endl;
+        cerr << "In function 'countNumberOfFilesInADirectory': the command executed was " + systemCall << endl;
+        exit(3);
+    }
+    
+    clog << "Done" << endl;
+    clog << "Exiting the function: 'countNumberOfFilesInADirectory'" << endl;
+    return;
+}
+
+void isPossibleToGenerateAllTheCollections(const bool &unique, vector<int> &collectionSize, const vector<vector<string>> &layerDir)
+{
+    clog << "Entered the function: 'isPossibleToGenerateAllTheCollections'" << endl;
+    ifstream fin;
+    int mult = 1, buffer;
+    if(unique){
+        for(int i=0;i<(int)layerDir.size();++i){
+            mult = 1;
+            for(int j=0;j<(int)layerDir[i].size();++j){
+                countNumberOfFilesInADirectory("./layers/" + layerDir[i][j]);
+                fin.open("./tmp/numberOfFilesInADirectory.txt");
+                if(fin.fail()){
+                    cerr << "in function 'isPossibleToGenerateAllTheCollections': error while opening in reading the file ./tmp/numberOfFilesInADirectory.txt" << endl;
+                    exit(2);
+                }
+                fin >> buffer;
+                mult *= buffer;
+                fin.close();
+            }
+            if(mult<collectionSize[i]){
+                clog << "There are not enough layers or traits to generate the collection number " << i + 1 << endl;
+                clog << "The maximum number of Nft that can be generated with the current layers and traits for the current collection is " << mult << endl;
+                exit(3);
+            }
+        }
+    }
+    
+    clog << "Exiting the function: 'isPossibleToGenerateAllTheCollections'" << endl;
     return;
 }
