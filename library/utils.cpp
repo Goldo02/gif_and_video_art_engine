@@ -567,7 +567,7 @@ void isPossibleToGenerateAllTheCollections(const bool &unique, vector<int> &coll
 {
     clog << "Entered the function: 'isPossibleToGenerateAllTheCollections'" << endl;
     ifstream fin;
-    int mult = 1, buffer;
+    long long mult, buffer;
     if(unique){
         for(int i=0;i<(int)layerDir.size();++i){
             mult = 1;
@@ -587,6 +587,8 @@ void isPossibleToGenerateAllTheCollections(const bool &unique, vector<int> &coll
                 clog << "The maximum number of Nft that can be generated with the current layers and traits for the current collection is " << mult << endl;
                 exit(3);
             }
+            else if(mult<0)
+                i = (int)layerDir.size();
         }
     }
     
