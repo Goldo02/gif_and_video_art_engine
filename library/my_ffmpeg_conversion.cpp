@@ -145,7 +145,7 @@ static void generateSingleMedia(const vector<string> &layerDir, const vector<vec
 		systemCall += "[i" + to_string(i) + "][" + to_string(i+1) + "]overlay=format=auto,scale=" + to_string(scale) + ":-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
     }
 	
-    if(outputFormat=="gif" || outputFormat=="mp3" || outputFormat=="wav")
+    if(outputFormat=="gif" || outputFormat=="mp3" || outputFormat=="wav" || outputFormat=="png" || outputFormat == "jpg")
         systemCall += "\" ";
     else
         systemCall += ";amix=inputs=" + to_string((int)layerDir.size()) + ":duration=longest\" ";
